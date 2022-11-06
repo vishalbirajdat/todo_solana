@@ -10,6 +10,8 @@ const Home = () => {
     const { initialized, initializeUser, loading, transactionPending, completedTodos, incompleteTodos, addTodo, markTodo, removeTodo, markStaticTodo,removeStaticTodo, addStaticTodo, } = useTodo()
     const [Inputs, setInputs] = useState(null)
     const handleChange = (e)=>{
+         e.preventDefault();
+        console.log(e.target.value);
         setInputs(e.target.value);
     }
 
