@@ -82,31 +82,34 @@ export function useTodo() {
         }
     }
 
-    const addTodo = async (_content) => {
-      
+    const addTodo = async (e) => {
+        e.preventDefault();
         if (program && publicKey) {
             try {
                 setTransactionPending(true)
                 const [profilePda, profileBump] = findProgramAddressSync([utf8.encode('USER_STATE'), publicKey.toBuffer()], program.programId)
                 const [todoPda, todoBump] = findProgramAddressSync([utf8.encode('TODO_STATE'), publicKey.toBuffer(), Uint8Array.from([lastTodo])], program.programId)
 
-                console.log(_content);
-                if (!_content) {
+                const content = prompt('Please input todo content');
+                console.log(content);
+                if (!content) {
                     setTransactionPending(false)
                     return
-                }else{
+                }
 
-                await program.methods
-                    .addTodo(_content)
+                const tx = await program.methods
+                    .addTodo(content)
                     .accounts({
                         userProfile: profilePda,
                         todoAccount: todoPda,
                         authority: publicKey,
                         systemProgram: SystemProgram.programId,
                     })
-                    .rpc()
+                    .rpc();
+                toast.success('working on it.')
+                    await tx.wait();
+
                 toast.success('Successfully added todo.')
-                }
             } catch (error) {
                 console.log(error)
                 toast.error(error.toString())
