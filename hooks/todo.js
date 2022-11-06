@@ -84,6 +84,7 @@ export function useTodo() {
 
     const addTodo = async (e) => {
         e.preventDefault();
+        console.log(e);
         if (program && publicKey) {
             try {
                 setTransactionPending(true)
