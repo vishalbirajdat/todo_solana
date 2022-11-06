@@ -6,7 +6,7 @@ import styles from '../styles/Home.module.css'
 
 
 const Home = () => {
-    const { initialized, initializeUser, loading, transactionPending, completedTodos, incompleteTodos, addTodo, markTodo, removeTodo, markStaticTodo,removeStaticTodo, addStaticTodo, } = useTodo()
+    const { initialized, initializeUser, loading, transactionPending, completedTodos, incompleteTodos, addTodo, markTodo, removeTodo, markStaticTodo,removeStaticTodo, addStaticTodo } = useTodo()
 
 
     return (
@@ -17,7 +17,7 @@ const Home = () => {
                         <div className={`${styles.todoCheckbox} ${styles.checked}`} />
                         <div className={styles.inputContainer}>
                             <form onSubmit={addTodo}>
-                                <input  onChange={handleChange} id={styles.inputField} type="text" placeholder='Create a new todo...' />
+                                <input name='input' id={styles.inputField} type="text" placeholder='Create a new todo...' />
                             </form>
                         </div>
                         <div className={styles.iconContainer}>
