@@ -85,6 +85,8 @@ export function useTodo() {
     const addTodo = async (e) => {
         e.preventDefault();
         console.log(e);
+        console.log(e.target[0].value);
+        console.log(e.target.value);
         if (program && publicKey) {
             try {
                 setTransactionPending(true)
@@ -96,9 +98,9 @@ export function useTodo() {
                 if (!content) {
                     setTransactionPending(false)
                     return
-                }
+                }else{
 
-                const tx = await program.methods
+               await program.methods
                     .addTodo(content)
                     .accounts({
                         userProfile: profilePda,
@@ -107,10 +109,9 @@ export function useTodo() {
                         systemProgram: SystemProgram.programId,
                     })
                     .rpc();
-                toast.success('working on it.')
-                    await tx.wait();
+                toast.success('Successfully added todo.');
+                }
 
-                toast.success('Successfully added todo.')
             } catch (error) {
                 console.log(error)
                 toast.error(error.toString())
